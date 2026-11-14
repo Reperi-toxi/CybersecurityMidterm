@@ -143,7 +143,7 @@ Repeating the login on a production-level website that uses HTTPS makes retrievi
 .
 ├── README.md
 ├── CyberMidterm.pdf        # Full midterm report
-└── TaskA.pcapng            # Task A capture (if included)
+└── 
 ```
 
 ## Disclaimer
