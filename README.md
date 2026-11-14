@@ -57,11 +57,12 @@ The server's terminal log shows the incoming `GET / HTTP/1.1` requests from `192
 
 Saved capture: `TaskA.pcapng`
 
-*Screenshot to be added here: filter 1, `tcp.port == 8000`*
 
-*Screenshot to be added here: filter 2, `tcp.flags.syn == 1`*
+![port filter](media/image2.png)
 
-*Screenshot to be added here: filter 3, `http`*
+![syn filter](media/image3.png)
+
+![http filter](media/image4.png)
 
 Filter 2 shows each connection attempt clearly. The `http` filter shows the `GET / HTTP/1.1` requests, the `HTTP/1.0 200 OK (text/html)` response, and the `HTTP/1.0 304 Not Modified` response on the browser's repeat request.
 
@@ -87,6 +88,8 @@ With filter `tcp.port == 8000` the handshake is visible twice:
 
 After the handshake completes, the HTTP request (`GET / HTTP/1.1`) is sent over the established connection.
 
+![tcp](media/image5.png)
+
 ---
 
 ## Task B: HTTP vs. HTTPS Login Comparison
@@ -103,9 +106,7 @@ The captured `POST /login/login_results.asp` request (**packet 80**, content typ
 - `txtUsername` = `cybermidterm`
 - `txtPassword` = `cybermidterm123`
 
-*Screenshot to be added here: exposed username and password*
-
-*Screenshot to be added here: full request details for packet 80*
+![http result](media/image8.png)
 
 **What an attacker can see:**
 
@@ -122,9 +123,9 @@ Repeating the login on a production-level website that uses HTTPS makes retrievi
 - The filter `http.request.method == "POST"` returns **nothing**, because the traffic is now hidden behind TLS.
 - Filtering with `tls.record.content_type == 23` shows only **TLSv1.2 "Application Data"** records, whose payload is encrypted and unreadable.
 
-*Screenshot to be added here: the POST filter returning no results*
+![post filter](media/image9.png)
 
-*Screenshot to be added here: encrypted application data of the HTTPS login*
+![app data](media/imagea.png)
 
 **Why it is protected:** HTTPS wraps all data in TLS encryption, which scrambles it using secret session keys that only the browser and the website know. Anyone capturing the traffic sees only unreadable bytes, because they do not have those keys.
 
@@ -137,14 +138,6 @@ Repeating the login on a production-level website that uses HTTPS makes retrievi
 3. **HTTPS (TLS) encrypts application data**, so a passive observer sees only encrypted bytes.
 4. Sensitive actions like logins should **never** be done over plain HTTP.
 
-## Repository Structure
-
-```
-.
-├── README.md
-├── CyberMidterm.pdf        # Full midterm report
-└── 
-```
 
 ## Disclaimer
 
